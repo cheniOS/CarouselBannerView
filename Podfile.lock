@@ -1,0 +1,10 @@
+PODS:
+  - Kingfisher (1.9.1)
+
+DEPENDENCIES:
+  - Kingfisher (~> 1.9)
+
+SPEC CHECKSUMS:
+  Kingfisher: 98fedd5d44d982b331fc7303f9f6144b7d8ba289
+
+COCOAPODS: 0.39.0
