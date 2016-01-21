@@ -1,5 +1,7 @@
 # CarouselBannerView
+
 1、在ViewController 里创建CarouselBannerView
+```
 class ViewController: UIViewController,CarouselBannerViewDelegate {
    var bannerView = CarouselBannerView()
    var imageSource = NSArray()
@@ -20,8 +22,9 @@ class ViewController: UIViewController,CarouselBannerViewDelegate {
      self.bannerView .reloadData()
     }
 }
+```
 2、引入需要实现3个协议
-
+```
       //获取图片的image（用的第三方的Kingfisher 加载的网络图片）
      func scrollView(toScrollView scrollView: CarouselBannerView, andImageAtIndex index: NSInteger, forImageView imageView: UIImageView) {
  
@@ -35,3 +38,4 @@ class ViewController: UIViewController,CarouselBannerViewDelegate {
     func  scrollView ( toScrollView scrollView : CarouselBannerView, didTappedImageAtIndex  index : NSInteger){
      print("点击\(index)")
     }
+```
