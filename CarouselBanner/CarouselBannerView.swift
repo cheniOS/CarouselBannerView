@@ -32,8 +32,8 @@ class CarouselBannerView: UIView ,UIScrollViewDelegate,UIGestureRecognizerDelega
         super.init(frame: frame);
      self.bgScrollView = UIScrollView.init(frame: CGRectMake(0, 0, self.frame.width, self.frame.height))
         self.bgScrollView .pagingEnabled = true
-        self.bgScrollView .showsHorizontalScrollIndicator = true
-        self.bgScrollView .showsVerticalScrollIndicator = true
+        self.bgScrollView .showsHorizontalScrollIndicator = false
+        self.bgScrollView .showsVerticalScrollIndicator = false
         self.addSubview(self.bgScrollView)
         self.setUpInit()
     }
@@ -47,7 +47,7 @@ class CarouselBannerView: UIView ,UIScrollViewDelegate,UIGestureRecognizerDelega
     self.shouldAutoScoll   = true;
 //      self.backgroundColor = UIColor.blueColor()
       self.numberForImage = 1
-      self.scrollInterval = 5
+      self.scrollInterval = 2.5
       self.imageView1 = UIImageView.init(frame:self.bounds)
       self.imageView1.backgroundColor=UIColor.redColor()
       self.imageView2 = UIImageView.init(frame:self.bounds)
@@ -66,10 +66,8 @@ class CarouselBannerView: UIView ,UIScrollViewDelegate,UIGestureRecognizerDelega
         self.imageView2.addGestureRecognizer(tapGesture)
         
         self.pageControl = UIPageControl.init(frame: CGRectMake((self.frame.size.width - 200)/2,self.frame.size.height-30, 200, 20))
-//        self.pageControl.numberOfPages = 4
         self.addSubview(self.pageControl)
-     
-//        self.bringSubviewToFront(self.pageControl)
+ 
     }
     
  
@@ -116,12 +114,11 @@ class CarouselBannerView: UIView ,UIScrollViewDelegate,UIGestureRecognizerDelega
         self.bannerDelegate!.scrollView(toScrollView: self, andImageAtIndex: self.currentPage, forImageView: self.imageView2)
         self.bannerDelegate!.scrollView(toScrollView: self, andImageAtIndex: self.currentPage == (self.numberForImage - 1) ? 0 : self.currentPage + 1 , forImageView: self.imageView3)
         self.bannerDelegate?.scrollView(toScrollView: self, andImageAtIndex: self.currentPage == 0 ? (self.numberForImage - 1) : self.currentPage - 1, forImageView: self.imageView1)
-//    func  scrollView ( toScrollViww scrollView : CarouselBannerView , didDidScrollToPage page : NSInteger)
-     self.bannerDelegate?.scrollView(toScrollViww: self, didDidScrollToPage: self.currentPage)
+ 
+        self.bannerDelegate?.scrollView(toScrollViww: self, didDidScrollToPage: self.currentPage)
     }
+    
    //MARK:  scrollViewDelegate
-    
-    
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if(self.shouldAutoScoll){
@@ -147,16 +144,10 @@ class CarouselBannerView: UIView ,UIScrollViewDelegate,UIGestureRecognizerDelega
     }
     func  reloadData() {
         let cout : Int = self.bannerDelegate.numberOfImageInScrollView(toScrollView: self)
-//        let cout : Int
+
        self.numberForImage = cout
         self.pageControl.numberOfPages = self.numberForImage
     }
-    
-    //MARK: 懒加载处理
-//    lazy var scrollInterval : NSTimeInterval = {
-//        
-//        return 1
-//    }()
     
     
 }

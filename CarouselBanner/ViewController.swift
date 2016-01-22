@@ -13,11 +13,13 @@ class ViewController: UIViewController,CarouselBannerViewDelegate {
    var imageSource = NSArray()
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.bannerView = CarouselBannerView.init(frame: CGRectMake(0, 0, 320, 160))
+        self.view.backgroundColor = UIColor.purpleColor()
+        self.bannerView = CarouselBannerView.init(frame: CGRectMake(0, 0, 320, 180))
         self.view.addSubview(self.bannerView)
         self.bannerView.bannerDelegate = self
-        self.performSelector(Selector("fetchData"), withObject:nil, afterDelay: 4)
-         imageSource = NSArray.init(objects: "http://static.damai.cn/cfs/2015/12/1ab03ad9-fcab-4806-b2a9-56e111bcde1f.jpg","http://static.dmcdn.cn/cfs/2016/1/86cb20f1-ec19-451a-975c-9123a92b1b16.jpg","http://static.dmcdn.cn/cfs/2015/12/f1f88dd4-493f-43d0-9f67-a62c4ce70d54.jpg","http://pimg.damai.cn/perform/damai/NewIndexManagement/201601/e0cbde39ecc94a4986e9ed8f6b2767e8.jpg")
+        imageSource = NSArray.init(objects: "http://static.damai.cn/cfs/2015/12/1ab03ad9-fcab-4806-b2a9-56e111bcde1f.jpg","http://static.dmcdn.cn/cfs/2016/1/86cb20f1-ec19-451a-975c-9123a92b1b16.jpg","http://static.dmcdn.cn/cfs/2015/12/f1f88dd4-493f-43d0-9f67-a62c4ce70d54.jpg","http://pimg.damai.cn/perform/damai/NewIndexManagement/201601/e0cbde39ecc94a4986e9ed8f6b2767e8.jpg")
+        self.performSelector(Selector("fetchData"), withObject:nil, afterDelay: 0.3)
+       
         // Do any additional setup after loading the view, typically from a nib.
     }
     func fetchData(){
