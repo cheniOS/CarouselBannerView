@@ -9,11 +9,14 @@
 import UIKit
 import Kingfisher
 protocol CarouselBannerViewDelegate  : NSObjectProtocol{
+    // 返回图片个数
     func  numberOfImageInScrollView (toScrollView scrollView : CarouselBannerView) ->Int
-    func  scrollView ( toScrollView scrollView : CarouselBannerView ,andImageAtIndex  index: NSInteger ,  forImageView  imageView : UIImageView)
     
-    func  scrollView ( toScrollView scrollView : CarouselBannerView, didTappedImageAtIndex  index : NSInteger)
-     func  scrollView ( toScrollViww scrollView : CarouselBannerView , didDidScrollToPage page : NSInteger)
+    // 获取图片数据
+    func  scrollView (toScrollView scrollView : CarouselBannerView ,andImageAtIndex  index: NSInteger ,  forImageView  imageView : UIImageView)
+    
+    // 点击图片
+    func  scrollView (toScrollView scrollView : CarouselBannerView, didTappedImageAtIndex  index : NSInteger)
 }
 class CarouselBannerView: UIView ,UIScrollViewDelegate,UIGestureRecognizerDelegate  {
     var bannerDelegate  : CarouselBannerViewDelegate!
@@ -73,9 +76,9 @@ class CarouselBannerView: UIView ,UIScrollViewDelegate,UIGestureRecognizerDelega
  
     override func didMoveToWindow() {
         super.didMoveToWindow()
-        if(self.shouldAutoScoll){
-            self.setUpAutoScrollTimer()
-        }
+//        if(self.shouldAutoScoll){
+//            self.setUpAutoScrollTimer()
+//        }
     }
     
     func toTapImageView ( gesture : UITapGestureRecognizer){
@@ -111,11 +114,12 @@ class CarouselBannerView: UIView ,UIScrollViewDelegate,UIGestureRecognizerDelega
     
     func reloadIamge(){
         self.pageControl.currentPage = self.currentPage
+        
         self.bannerDelegate!.scrollView(toScrollView: self, andImageAtIndex: self.currentPage, forImageView: self.imageView2)
         self.bannerDelegate!.scrollView(toScrollView: self, andImageAtIndex: self.currentPage == (self.numberForImage - 1) ? 0 : self.currentPage + 1 , forImageView: self.imageView3)
         self.bannerDelegate?.scrollView(toScrollView: self, andImageAtIndex: self.currentPage == 0 ? (self.numberForImage - 1) : self.currentPage - 1, forImageView: self.imageView1)
  
-        self.bannerDelegate?.scrollView(toScrollViww: self, didDidScrollToPage: self.currentPage)
+        
     }
     
    //MARK:  scrollViewDelegate
@@ -146,7 +150,18 @@ class CarouselBannerView: UIView ,UIScrollViewDelegate,UIGestureRecognizerDelega
         let cout : Int = self.bannerDelegate.numberOfImageInScrollView(toScrollView: self)
 
        self.numberForImage = cout
+        self.setUpAutoScrollTimer()
+        if(self.numberForImage == 1 || self.numberForImage == 0){
+            self.bgScrollView.contentSize = CGSizeMake(self.frame.size.width, self.frame.size.height)
+             self.scrollTimer.invalidate()
+            self.pageControl.hidden = true
+        }else{
+        self.bgScrollView.contentSize = CGSizeMake(3*self.frame.size.width, self.frame.size.height)
+            self.pageControl.hidden = false
+        }
+
         self.pageControl.numberOfPages = self.numberForImage
+        self .reloadIamge()
     }
     
     
